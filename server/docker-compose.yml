@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   api:
-    container_name: graphql-api
+    container_name: graphql-api-${NODE_ENV}
+    image: graphql-api-${NODE_ENV}
     build:
       dockerfile: Dockerfile
       context: .
@@ -13,7 +14,6 @@ services:
      - .env
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public&sslmode=prefer
-    command: yarn start:dev
     ports:
       - ${API_PORT}:${API_PORT}
     depends_on:
