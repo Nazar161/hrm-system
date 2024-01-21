@@ -1,8 +1,10 @@
+ARG NODE_VERSION=20.11.0
+
 ###################
 # BUILD FOR LOCAL DEVELOPMENT
 ###################
 
-FROM node:20-alpine As dev
+FROM node:${NODE_VERSION}-alpine As dev
 
 WORKDIR /usr/src/app
 
@@ -22,7 +24,7 @@ USER node
 # BUILD FOR PRODUCTION
 ###################
 
-FROM node:20-alpine As build
+FROM node:${NODE_VERSION}-alpine As build
 
 WORKDIR /usr/src/app
 
@@ -44,9 +46,11 @@ USER node
 # PRODUCTION
 ###################
 
-FROM node:20-alpine As prod
+FROM node:${NODE_VERSION}-alpine As prod
 
+COPY --chown=node:node --from=build /usr/src/app/package.json ./
+COPY --chown=node:node --from=build /usr/src/app/src/database ./src/database
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 
-CMD [ "node", "dist/main.js" ]
+CMD [ "yarn", "start:migrate:prod" ]
