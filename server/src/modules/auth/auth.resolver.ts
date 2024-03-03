@@ -1,50 +1,46 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { Auth } from './entities/auth.entity';
-import { SignUpInput } from './dto/signup.input';
-import { SignResponse } from './dto/signResponse';
-import { SignInInput } from './dto/signin.input';
-import { LogoutResponse } from './dto/logoutResponse';
+import { SignUpInput } from './dto/inputs/signup.input';
+import { SignResponse } from './dto/responseTypes/sign.response';
+import { SignInInput } from './dto/inputs/signin.input';
+import { LogoutResponse } from './dto/responseTypes/logout.response';
 import { Public } from './decorators/public.decorator';
-import { NewTokensResponse } from './dto/newTokensResponse';
+import { NewTokensResponse } from './dto/responseTypes/newTokens.response';
 import { CurrentUserId } from './decorators/currentUserId.decorator';
 import { CurrentUser } from './decorators/currentUser.decorator';
 import { UseGuards } from '@nestjs/common';
 import { RefreshTokenGuard } from './guards/refreshToken.guard';
 
-@Resolver(() => Auth)
+@Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
   @Mutation(() => SignResponse)
-  signUp(@Args('signUpInput') signUpInput: SignUpInput) {
+  async signUp(@Args('signUpInput') signUpInput: SignUpInput) {
     return this.authService.signUp(signUpInput);
   }
 
   @Public()
   @Mutation(() => SignResponse)
-  signIn(@Args('signInInput') signInInput: SignInInput) {
+  async signIn(@Args('signInInput') signInInput: SignInInput) {
     return this.authService.signIn(signInInput);
   }
 
   @Mutation(() => LogoutResponse)
-  logout(@Args('userId', { type: () => String }) userId: string) {
+  async logout(@Args('userId', { type: () => String }) userId: string) {
     return this.authService.logout(userId);
   }
 
   @Query(() => String)
-  hello(@CurrentUser('email') email: string) {
+  async hello(@CurrentUser('email') email: string) {
     return `Hello ${email}`;
   }
 
   @Public()
   @UseGuards(RefreshTokenGuard)
   @Mutation(() => NewTokensResponse)
-  getNewTokens(
-    @CurrentUserId() userId: string,
-    @CurrentUser('refreshToken') refreshToken: string,
-  ) {
+  async getNewTokens(@CurrentUserId() userId: string, @CurrentUser('refreshToken') refreshToken: string) {
     return this.authService.getNewTokens(userId, refreshToken);
   }
 }

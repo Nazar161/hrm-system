@@ -1,10 +1,10 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { SignUpInput } from './dto/signup.input';
+import { SignUpInput } from './dto/inputs/signup.input';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
-import { SignInInput } from './dto/signin.input';
+import { SignInInput } from './dto/inputs/signin.input';
 
 @Injectable()
 export class AuthService {
@@ -15,19 +15,19 @@ export class AuthService {
   ) {}
 
   async signUp(signUpInput: SignUpInput) {
-    const hashedPassword = await argon.hash(signUpInput.password);
+    const { email, username, firstName, lastName, password } = signUpInput;
+    const hashedPassword = await argon.hash(password);
     const user = await this.prisma.user.create({
       data: {
-        username: signUpInput.username,
-        email: signUpInput.email,
+        email,
+        username,
+        firstName,
+        lastName,
         hashedPassword,
       },
     });
 
-    const { accessToken, refreshToken } = await this.createTokens(
-      user.id,
-      user.email,
-    );
+    const { accessToken, refreshToken } = await this.createTokens(user.id, user.email);
 
     await this.updateRefreshToken(user.id, refreshToken);
 
@@ -43,19 +43,13 @@ export class AuthService {
       throw new ForbiddenException('Access Denied');
     }
 
-    const doPasswordsMatch = await argon.verify(
-      user.hashedPassword,
-      signInInput.password,
-    );
+    const doPasswordsMatch = await argon.verify(user.hashedPassword, signInInput.password);
 
     if (!doPasswordsMatch) {
       throw new ForbiddenException('Access Denied');
     }
 
-    const { accessToken, refreshToken } = await this.createTokens(
-      user.id,
-      user.email,
-    );
+    const { accessToken, refreshToken } = await this.createTokens(user.id, user.email);
 
     await this.updateRefreshToken(user.id, refreshToken);
 
@@ -87,7 +81,7 @@ export class AuthService {
         email,
       },
       {
-        expiresIn: '10m',
+        expiresIn: '15m',
         secret: this.configService.get('ACCESS_TOKEN_SECRET'),
       },
     );
@@ -116,19 +110,13 @@ export class AuthService {
       throw new ForbiddenException('Access Denied');
     }
 
-    const doRefreshTokenMatch = await argon.verify(
-      user.hashedRefreshToken,
-      rToken,
-    );
+    const doRefreshTokenMatch = await argon.verify(user.hashedRefreshToken, rToken);
 
     if (!doRefreshTokenMatch) {
       throw new ForbiddenException('Access Denied');
     }
 
-    const { accessToken, refreshToken } = await this.createTokens(
-      user.id,
-      user.email,
-    );
+    const { accessToken, refreshToken } = await this.createTokens(user.id, user.email);
 
     await this.updateRefreshToken(user.id, refreshToken);
     return { accessToken, refreshToken, user };

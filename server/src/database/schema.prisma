@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -12,11 +12,46 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  username String @unique
-  email String @unique
-  hashedPassword String
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  username           String   @unique
+  firstName          String
+  lastName           String
+  hashedPassword     String
   hashedRefreshToken String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now())
+}
+
+model Candidate {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  phone       String?
+  email       String   @unique
+  position    String
+  sex         Sex      @default(UNKNOWN)
+  dateOfBirth DateTime
+  imageUrl    String?
+  resumes     Resume[]
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+model Resume {
+  id           String     @id @default(cuid())
+  resumeTitle  String
+  resumeUrl    String
+  resumeFormat ResumeFormat
+  candidate    Candidate  @relation(fields: [candidateId], references: [id])
+  candidateId  String
+}
+
+enum ResumeFormat {
+  DOCX
+  PDF
 }
