@@ -12,6 +12,7 @@ import { AccessTokenGuard } from './modules/auth/guards/accessToken.guard';
 import { CandidateModule } from './modules/candidate/candidate.module';
 import { ResumeModule } from './modules/resume/resume.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
+import { GcsModule } from './modules/gcs/gcs.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
     CandidateModule,
     ResumeModule,
     PrismaModule,
+    GcsModule,
   ],
   controllers: [],
   providers: [PrismaService, { provide: APP_GUARD, useClass: AccessTokenGuard }],

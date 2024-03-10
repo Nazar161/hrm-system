@@ -1,9 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { GcsService } from '../gcs/gcs.service';
+import { init } from '@paralleldrive/cuid2';
+import { ResumeFormat } from './entities/resumeFormat.enum';
 
 @Injectable()
 export class ResumeService {
-  constructor(private prisma: PrismaService) {}
+  private createId: () => string;
+  constructor(
+    private prisma: PrismaService,
+    private readonly gcsService: GcsService,
+  ) {
+    this.createId = init({
+      length: 25,
+    });
+  }
 
   findAll() {
     return `This action returns all resume`;
@@ -23,5 +34,37 @@ export class ResumeService {
 
   remove(id: number) {
     return `This action removes a #${id} resume`;
+  }
+
+  async uploadResume(file: Express.Multer.File, candidateId: string) {
+    const resumeId = this.createId();
+
+    const fileOriginalName = file.originalname;
+    const resumeTitle = fileOriginalName.replace(/\s+\./g, '.');
+    const resumeName = `${resumeId}-${fileOriginalName.replace(/\s+\./g, '.').replace(/ +/g, '-')}`;
+
+    const resumeUrl = `https://storage.googleapis.com/hrm-system-378-storage/${resumeName}`;
+
+    const resumeFormat: ResumeFormat = resumeTitle.toLowerCase().endsWith('.pdf')
+      ? ResumeFormat.PDF
+      : ResumeFormat.DOCX;
+
+    await this.gcsService.uploadFile(resumeName, file.buffer);
+
+    const resume = await this.prisma.resume.create({
+      data: {
+        id: resumeId,
+        resumeTitle,
+        resumeUrl,
+        resumeFormat,
+        candidate: {
+          connect: {
+            id: candidateId,
+          },
+        },
+      },
+    });
+
+    return resume;
   }
 }

@@ -43,11 +43,11 @@ enum Sex {
 }
 
 model Resume {
-  id           String     @id @default(cuid())
+  id           String       @id @default(cuid())
   resumeTitle  String
   resumeUrl    String
   resumeFormat ResumeFormat
-  candidate    Candidate  @relation(fields: [candidateId], references: [id])
+  candidate    Candidate    @relation(fields: [candidateId], references: [id])
   candidateId  String
 }
 

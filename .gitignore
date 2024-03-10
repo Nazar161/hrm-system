@@ -36,3 +36,4 @@ coverage
 
 # Config
 .env
+gcs-keyfile.json

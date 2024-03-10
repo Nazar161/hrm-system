@@ -34,8 +34,14 @@ export class CandidateService {
     return `This action returns all candidate`;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} candidate`;
+  async findOne(id: string) {
+    const candidate = await this.prisma.candidate.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return candidate;
   }
 
   update(id: string, updateCandidateInput: UpdateCandidateInput) {
