@@ -13,6 +13,8 @@ import { CandidateModule } from './modules/candidate/candidate.module';
 import { ResumeModule } from './modules/resume/resume.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { GcsModule } from './modules/gcs/gcs.module';
+import { VacancyModule } from './modules/vacancy/vacancy.module';
+import { ApplicationModule } from './modules/application/application.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { GcsModule } from './modules/gcs/gcs.module';
     ResumeModule,
     PrismaModule,
     GcsModule,
+    VacancyModule,
+    ApplicationModule,
   ],
   controllers: [],
   providers: [PrismaService, { provide: APP_GUARD, useClass: AccessTokenGuard }],

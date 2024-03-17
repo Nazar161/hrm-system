@@ -37,6 +37,18 @@ enum ResumeFormat {
   PDF
 }
 
+type Vacancy {
+  id: ID!
+  title: String!
+  description: String!
+  applications: [Application]
+}
+
+type Application {
+  vacancy: Vacancy!
+  candidate: Candidate!
+}
+
 type Candidate {
   id: ID!
   firstName: String!
@@ -48,6 +60,7 @@ type Candidate {
   dateOfBirth: DateTime!
   imageUrl: String
   resumes: [Resume]
+  applications: [Application]
 }
 
 enum Sex {
@@ -66,6 +79,7 @@ type Query {
   candidates: [Candidate!]!
   candidate(id: ID!): Candidate!
   resume(id: Int!): Resume!
+  vacancies: [Vacancy!]!
 }
 
 type Mutation {
@@ -77,6 +91,7 @@ type Mutation {
   updateCandidate(updateCandidateInput: UpdateCandidateInput!): Candidate!
   removeCandidate(id: ID!): Candidate!
   removeResume(id: Int!): Resume!
+  createVacancy(createVacancyInput: CreateVacancyInput!): Vacancy!
 }
 
 input SignUpInput {
@@ -111,4 +126,9 @@ input UpdateCandidateInput {
   sex: Sex
   dateOfBirth: DateTime
   id: ID!
+}
+
+input CreateVacancyInput {
+  title: String!
+  description: String!
 }

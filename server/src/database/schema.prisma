@@ -24,16 +24,17 @@ model User {
 }
 
 model Candidate {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
   firstName   String
   lastName    String
   phone       String?
-  email       String   @unique
+  email       String        @unique
   position    String
-  sex         Sex      @default(UNKNOWN)
+  sex         Sex           @default(UNKNOWN)
   dateOfBirth DateTime
   imageUrl    String?
   resumes     Resume[]
+  Application Application[]
 }
 
 enum Sex {
@@ -54,4 +55,20 @@ model Resume {
 enum ResumeFormat {
   DOCX
   PDF
+}
+
+model Vacancy {
+  id          String        @id @default(cuid())
+  title       String
+  description String
+  Application Application[]
+}
+
+model Application {
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  candidateId String
+  vacancy     Vacancy   @relation(fields: [vacancyId], references: [id])
+  vacancyId   String
+
+  @@id([candidateId, vacancyId], name: "candidateId_vacancyId")
 }
