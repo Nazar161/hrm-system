@@ -40,16 +40,17 @@ export class ResumeService {
     const resumeId = this.createId();
 
     const fileOriginalName = file.originalname;
-    const resumeTitle = fileOriginalName.replace(/\s+\./g, '.');
-    const resumeName = `${resumeId}-${fileOriginalName.replace(/\s+\./g, '.').replace(/ +/g, '-')}`;
+    const fileExtension = fileOriginalName.substring(fileOriginalName.lastIndexOf('.') + 1);
+    const customFileName = `${resumeId}.${fileExtension}`;
+    const resumeUrl = `https://storage.googleapis.com/hrm-system-378-storage/${customFileName}`;
 
-    const resumeUrl = `https://storage.googleapis.com/hrm-system-378-storage/${resumeName}`;
+    await this.gcsService.uploadFile(customFileName, file.buffer);
+
+    const resumeTitle = fileOriginalName.replace(/\s+\./g, '.');
 
     const resumeFormat: ResumeFormat = resumeTitle.toLowerCase().endsWith('.pdf')
       ? ResumeFormat.PDF
       : ResumeFormat.DOCX;
-
-    await this.gcsService.uploadFile(resumeName, file.buffer);
 
     const resume = await this.prisma.resume.create({
       data: {
