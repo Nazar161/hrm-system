@@ -5,7 +5,6 @@ import { SignResponse } from './dto/responseTypes/sign.response';
 import { SignInInput } from './dto/inputs/signin.input';
 import { LogoutResponse } from './dto/responseTypes/logout.response';
 import { Public } from './decorators/public.decorator';
-import { NewTokensResponse } from './dto/responseTypes/newTokens.response';
 import { CurrentUserId } from './decorators/currentUserId.decorator';
 import { CurrentUser } from './decorators/currentUser.decorator';
 import { UseGuards } from '@nestjs/common';
@@ -39,7 +38,7 @@ export class AuthResolver {
 
   @Public()
   @UseGuards(RefreshTokenGuard)
-  @Mutation(() => NewTokensResponse)
+  @Mutation(() => SignResponse)
   async getNewTokens(@CurrentUserId() userId: string, @CurrentUser('refreshToken') refreshToken: string) {
     return this.authService.getNewTokens(userId, refreshToken);
   }

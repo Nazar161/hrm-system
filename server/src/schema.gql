@@ -20,11 +20,6 @@ type LogoutResponse {
   loggedOut: Boolean!
 }
 
-type NewTokensResponse {
-  accessToken: String!
-  refreshToken: String!
-}
-
 type Resume {
   id: ID!
   resumeTitle: String!
@@ -86,7 +81,7 @@ type Mutation {
   signUp(signUpInput: SignUpInput!): SignResponse!
   signIn(signInInput: SignInInput!): SignResponse!
   logout(userId: String!): LogoutResponse!
-  getNewTokens: NewTokensResponse!
+  getNewTokens: SignResponse!
   createCandidate(createCandidateInput: CreateCandidateInput!): Candidate!
   updateCandidate(updateCandidateInput: UpdateCandidateInput!): Candidate!
   removeCandidate(id: ID!): Candidate!
