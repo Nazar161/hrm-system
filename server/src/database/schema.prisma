@@ -12,31 +12,35 @@ datasource db {
 }
 
 model User {
-  id                 String   @id @default(cuid())
-  email              String   @unique
-  username           String   @unique
+  id                 String      @id @default(cuid())
+  email              String      @unique
+  username           String      @unique
   firstName          String
   lastName           String
   hashedPassword     String
   hashedRefreshToken String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @default(now())
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @default(now())
+  candidates         Candidate[]
+  vacancies          Vacancy[]
 }
 
 model Candidate {
-  id          String        @id @default(cuid())
-  firstName   String
-  lastName    String
-  phone       String?
-  email       String        @unique
-  position    String
-  sex         Sex           @default(UNKNOWN)
-  dateOfBirth DateTime
-  imageUrl    String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
-  resumes     Resume[]
-  Application Application[]
+  id           String        @id @default(cuid())
+  firstName    String
+  lastName     String
+  phone        String?
+  email        String        @unique
+  position     String
+  sex          Sex           @default(UNKNOWN)
+  dateOfBirth  DateTime
+  imageUrl     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  resumes      Resume[]
+  applications Application[]
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 enum Sex {
@@ -60,12 +64,14 @@ enum ResumeFormat {
 }
 
 model Vacancy {
-  id          String        @id @default(cuid())
-  title       String
-  description String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
-  Application Application[]
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  applications Application[]
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 model Application {
