@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { VacancyService } from './vacancy.service';
 import { Vacancy } from './entities/vacancy.entity';
 import { CreateVacancyInput } from './dto/inputs/createVacancy.input';
@@ -17,7 +17,7 @@ export class VacancyResolver {
   }
 
   @Query(() => [Vacancy], { name: 'vacancies' })
-  findAll() {
-    return this.vacancyService.findAll();
+  findAll(@Args('last', { type: () => Int, nullable: true }) last?: number) {
+    return this.vacancyService.findAll(last);
   }
 }

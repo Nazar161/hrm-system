@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent, ID, Int } from '@nestjs/graphql';
 import { CandidateService } from './candidate.service';
 import { Candidate } from './entities/candidate.entity';
 import { CreateCandidateInput } from './dto/inputs/createCandidate.input';
@@ -22,8 +22,8 @@ export class CandidateResolver {
   }
 
   @Query(() => [Candidate], { name: 'candidates' })
-  findAll() {
-    return this.candidateService.findAll();
+  findAll(@Args('last', { type: () => Int, nullable: true }) last?: number) {
+    return this.candidateService.findAll(last);
   }
 
   @Query(() => Candidate, { name: 'candidate' })

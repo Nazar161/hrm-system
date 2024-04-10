@@ -23,7 +23,12 @@ export class VacancyService {
     return vacancy;
   }
 
-  async findAll() {
-    return await this.prisma.vacancy.findMany();
+  async findAll(last: number) {
+    return await this.prisma.vacancy.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      take: last,
+    });
   }
 }

@@ -71,10 +71,10 @@ scalar DateTime
 
 type Query {
   hello: String!
-  candidates: [Candidate!]!
+  candidates(last: Int): [Candidate!]!
   candidate(id: ID!): Candidate!
   resume(id: Int!): Resume!
-  vacancies: [Vacancy!]!
+  vacancies(last: Int): [Vacancy!]!
 }
 
 type Mutation {

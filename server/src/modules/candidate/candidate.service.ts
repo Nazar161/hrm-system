@@ -35,8 +35,13 @@ export class CandidateService {
     }
   }
 
-  findAll() {
-    return `This action returns all candidate`;
+  async findAll(last: number) {
+    return await this.prisma.candidate.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      take: last,
+    });
   }
 
   async findOne(id: string, userId: string) {
