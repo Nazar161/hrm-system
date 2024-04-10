@@ -4,6 +4,7 @@ import { Candidate } from './entities/candidate.entity';
 import { CreateCandidateInput } from './dto/inputs/createCandidate.input';
 import { UpdateCandidateInput } from './dto/inputs/updateCandidate.input';
 import { ResumeService } from '../resume/resume.service';
+import { CurrentUserId } from '../auth/decorators/currentUserId.decorator';
 
 @Resolver(() => Candidate)
 export class CandidateResolver {
@@ -13,8 +14,11 @@ export class CandidateResolver {
   ) {}
 
   @Mutation(() => Candidate)
-  createCandidate(@Args('createCandidateInput') createCandidateInput: CreateCandidateInput) {
-    return this.candidateService.create(createCandidateInput);
+  createCandidate(
+    @Args('createCandidateInput') createCandidateInput: CreateCandidateInput,
+    @CurrentUserId() userId: string,
+  ) {
+    return this.candidateService.create(createCandidateInput, userId);
   }
 
   @Query(() => [Candidate], { name: 'candidates' })
@@ -23,8 +27,8 @@ export class CandidateResolver {
   }
 
   @Query(() => Candidate, { name: 'candidate' })
-  findOne(@Args('id', { type: () => ID }) id: string) {
-    return this.candidateService.findOne(id);
+  findOne(@Args('id', { type: () => ID }) id: string, @CurrentUserId() userId: string) {
+    return this.candidateService.findOne(id, userId);
   }
 
   @Mutation(() => Candidate)

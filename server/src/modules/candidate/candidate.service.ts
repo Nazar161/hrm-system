@@ -7,7 +7,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 @Injectable()
 export class CandidateService {
   constructor(private prisma: PrismaService) {}
-  async create(createCandidateInput: CreateCandidateInput) {
+  async create(createCandidateInput: CreateCandidateInput, userId: string) {
     try {
       const { firstName, lastName, phone, email, position, sex, dateOfBirth } = createCandidateInput;
       const candidate = await this.prisma.candidate.create({
@@ -19,6 +19,11 @@ export class CandidateService {
           position,
           sex: sex,
           dateOfBirth,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
         },
       });
 
@@ -34,10 +39,11 @@ export class CandidateService {
     return `This action returns all candidate`;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, userId: string) {
     const candidate = await this.prisma.candidate.findUnique({
       where: {
         id,
+        userId,
       },
     });
 
