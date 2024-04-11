@@ -40,9 +40,17 @@ type Vacancy {
 }
 
 type Application {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   vacancy: Vacancy!
   candidate: Candidate!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Candidate {
   id: ID!
@@ -64,10 +72,9 @@ enum Sex {
   UNKNOWN
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type MutateApplicationResponse {
+  isSuccess: Boolean!
+}
 
 type Query {
   hello: String!
@@ -75,6 +82,7 @@ type Query {
   candidate(id: ID!): Candidate!
   resume(id: Int!): Resume!
   vacancies(last: Int): [Vacancy!]!
+  application(id: ID!): Application!
 }
 
 type Mutation {
@@ -87,6 +95,7 @@ type Mutation {
   removeCandidate(id: ID!): Candidate!
   removeResume(id: Int!): Resume!
   createVacancy(createVacancyInput: CreateVacancyInput!): Vacancy!
+  createApplication(createApplicationInput: CreateApplicationInput!): MutateApplicationResponse!
 }
 
 input SignUpInput {
@@ -126,4 +135,9 @@ input UpdateCandidateInput {
 input CreateVacancyInput {
   title: String!
   description: String!
+}
+
+input CreateApplicationInput {
+  vacancyId: ID!
+  candidateId: ID!
 }

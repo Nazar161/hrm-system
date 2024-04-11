@@ -4,6 +4,15 @@ import { Candidate } from '../../candidate/entities/candidate.entity';
 
 @ObjectType()
 export class Application {
+  @Field(() => ID)
+  id: string;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+
   @Field(() => Vacancy)
   vacancy: Vacancy;
 

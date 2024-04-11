@@ -7,6 +7,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 @Injectable()
 export class CandidateService {
   constructor(private prisma: PrismaService) {}
+
   async create(createCandidateInput: CreateCandidateInput, userId: string) {
     try {
       const { firstName, lastName, phone, email, position, sex, dateOfBirth } = createCandidateInput;
