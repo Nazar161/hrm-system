@@ -1,8 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-import { InterviewStatus } from '../../entities/interviewStatus.enum';
-import { TestTaskStatus } from '../../entities/testTaskStatus.enum';
-import { RefusalReason } from '../../entities/refusalReason.enum';
+import { InterviewStatus } from '../../entities/enums/interviewStatus.enum';
+import { TestTaskStatus } from '../../entities/enums/testTaskStatus.enum';
+import { RefusalReason } from '../../entities/enums/refusalReason.enum';
 
 @InputType()
 export class UpdateApplicationInput {

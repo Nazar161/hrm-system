@@ -36,8 +36,11 @@ export class CandidateService {
     }
   }
 
-  async findAll(last: number) {
+  async findAll(userId: string, last: number) {
     return await this.prisma.candidate.findMany({
+      where: {
+        userId,
+      },
       orderBy: {
         updatedAt: 'desc',
       },

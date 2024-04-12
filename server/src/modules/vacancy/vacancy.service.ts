@@ -23,12 +23,24 @@ export class VacancyService {
     return vacancy;
   }
 
-  async findAll(last: number) {
+  async findAll(userId: string, last: number) {
     return await this.prisma.vacancy.findMany({
+      where: {
+        userId,
+      },
       orderBy: {
         updatedAt: 'desc',
       },
       take: last,
+    });
+  }
+
+  async findOne(id: string, userId: string) {
+    return await this.prisma.vacancy.findUnique({
+      where: {
+        id,
+        userId,
+      },
     });
   }
 }

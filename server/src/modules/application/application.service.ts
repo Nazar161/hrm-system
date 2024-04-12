@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateApplicationInput } from './dto/inputs/createApplication.input';
 import { UpdateApplicationInput } from './dto/inputs/updateApplication.input';
+import { ApplicationPreview } from './entities/applicationPreview.entity';
 
 @Injectable()
 export class ApplicationService {
@@ -51,5 +52,36 @@ export class ApplicationService {
     }
 
     return application;
+  }
+
+  async findAllByVacancyId(vacancyId: string) {
+    const rawApplications = await this.prisma.application.findMany({
+      where: {
+        vacancyId,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      select: {
+        id: true,
+        candidate: { select: { id: true, firstName: true, lastName: true, position: true } },
+      },
+    });
+
+    const applications = rawApplications.map((application) => {
+      const {
+        id,
+        candidate: { id: candidateId, firstName, lastName, position },
+      } = application;
+
+      return {
+        id,
+        candidateId,
+        candidateName: `${firstName} ${lastName}`,
+        candidatePosition: position,
+      };
+    });
+
+    return applications;
   }
 }

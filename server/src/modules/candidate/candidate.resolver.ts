@@ -22,8 +22,8 @@ export class CandidateResolver {
   }
 
   @Query(() => [Candidate], { name: 'candidates' })
-  findAll(@Args('last', { type: () => Int, nullable: true }) last?: number) {
-    return this.candidateService.findAll(last);
+  findAll(@CurrentUserId() userId: string, @Args('last', { type: () => Int, nullable: true }) last?: number) {
+    return this.candidateService.findAll(userId, last);
   }
 
   @Query(() => Candidate, { name: 'candidate' })

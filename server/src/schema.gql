@@ -32,11 +32,18 @@ enum ResumeFormat {
   PDF
 }
 
+type ApplicationPreview {
+  id: ID!
+  candidateId: ID!
+  candidateName: String!
+  candidatePosition: String!
+}
+
 type Vacancy {
   id: ID!
   title: String!
   description: String!
-  applications: [Application]
+  applications: [ApplicationPreview]
 }
 
 type Application {
@@ -114,6 +121,7 @@ type Query {
   candidates(last: Int): [Candidate!]!
   candidate(id: ID!): Candidate!
   resume(id: Int!): Resume!
+  vacancy(id: ID!): Vacancy!
   vacancies(last: Int): [Vacancy!]!
   application(id: ID!): Application!
 }

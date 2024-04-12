@@ -1,9 +1,9 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Vacancy } from '../../vacancy/entities/vacancy.entity';
 import { Candidate } from '../../candidate/entities/candidate.entity';
-import { InterviewStatus } from './interviewStatus.enum';
-import { TestTaskStatus } from './testTaskStatus.enum';
-import { RefusalReason } from './refusalReason.enum';
+import { InterviewStatus } from './enums/interviewStatus.enum';
+import { TestTaskStatus } from './enums/testTaskStatus.enum';
+import { RefusalReason } from './enums/refusalReason.enum';
 
 @ObjectType()
 export class Application {

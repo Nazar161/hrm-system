@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Application } from '../../application/entities/application.entity';
+import { ApplicationPreview } from '../../application/entities/applicationPreview.entity';
 
 @ObjectType()
 export class Vacancy {
@@ -12,6 +12,6 @@ export class Vacancy {
   @Field()
   description: string;
 
-  @Field(() => [Application], { nullable: 'itemsAndList' })
-  applications: Application[];
+  @Field(() => [ApplicationPreview], { nullable: 'itemsAndList' })
+  applications: ApplicationPreview[];
 }
