@@ -41,10 +41,43 @@ type Vacancy {
 
 type Application {
   id: ID!
+  telInterview: InterviewStatus
+  telInterviewComment: String
+  hrInterview: InterviewStatus
+  hrInterviewComment: String
+  techInterview: InterviewStatus
+  techInterviewComment: String
+  testTask: TestTaskStatus
+  testTaskComment: String
+  offer: Boolean
+  offerComment: String
+  jobStartComment: String
+  refusalReason: RefusalReason
+  refusalReasonComment: String
   createdAt: DateTime!
   updatedAt: DateTime!
   vacancy: Vacancy!
   candidate: Candidate!
+}
+
+"""The status of an interview."""
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  NOT_COMPLETED
+}
+
+enum TestTaskStatus {
+  NOT_ASKED
+  COMPLETED
+  NOT_COMPLETED
+  REFUSAL_TO_COMPLETE
+}
+
+enum RefusalReason {
+  CANDIDATE_REFUSAL
+  HR_REFUSAL
+  TECH_REFUSAL
 }
 
 """
@@ -96,6 +129,7 @@ type Mutation {
   removeResume(id: Int!): Resume!
   createVacancy(createVacancyInput: CreateVacancyInput!): Vacancy!
   createApplication(createApplicationInput: CreateApplicationInput!): MutateApplicationResponse!
+  updateApplication(updateApplicationInput: UpdateApplicationInput!): Application!
 }
 
 input SignUpInput {
@@ -140,4 +174,21 @@ input CreateVacancyInput {
 input CreateApplicationInput {
   vacancyId: ID!
   candidateId: ID!
+}
+
+input UpdateApplicationInput {
+  id: String!
+  telInterview: InterviewStatus
+  telInterviewComment: String
+  hrInterview: InterviewStatus
+  hrInterviewComment: String
+  techInterview: InterviewStatus
+  techInterviewComment: String
+  testTask: TestTaskStatus
+  testTaskComment: String
+  offer: Boolean
+  offerComment: String
+  jobStartComment: String
+  refusalReason: RefusalReason
+  refusalReasonComment: String
 }

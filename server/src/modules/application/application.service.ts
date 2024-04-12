@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateApplicationInput } from './dto/inputs/createApplication.input';
+import { UpdateApplicationInput } from './dto/inputs/updateApplication.input';
 
 @Injectable()
 export class ApplicationService {
@@ -33,6 +34,21 @@ export class ApplicationService {
         candidate: true,
       },
     });
+
+    return application;
+  }
+
+  async update(updateApplicationInput: UpdateApplicationInput) {
+    const { id } = updateApplicationInput;
+    const application = await this.prisma.application.update({
+      where: { id },
+
+      data: { updatedAt: new Date(), ...updateApplicationInput },
+    });
+
+    if (!application) {
+      throw new BadRequestException('Something went wrong!');
+    }
 
     return application;
   }

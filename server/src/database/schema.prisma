@@ -75,13 +75,46 @@ model Vacancy {
 }
 
 model Application {
-  id          String    @unique @default(cuid())
+  id                   String           @unique @default(cuid())
+  telInterview         InterviewStatus?
+  telInterviewComment  String?
+  hrInterview          InterviewStatus?
+  hrInterviewComment   String?
+  techInterview        InterviewStatus?
+  techInterviewComment String?
+  testTask             TestTaskStatus?
+  testTaskComment      String?
+  offer                Boolean?
+  offerComment         String?
+  jobStartComment      String?
+  refusalReason        RefusalReason?
+  refusalReasonComment String?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @default(now())
+
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   candidateId String
   vacancy     Vacancy   @relation(fields: [vacancyId], references: [id])
   vacancyId   String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
 
   @@id([candidateId, vacancyId], name: "candidateId_vacancyId")
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  NOT_COMPLETED
+}
+
+enum TestTaskStatus {
+  NOT_ASKED
+  COMPLETED
+  NOT_COMPLETED
+  REFUSAL_TO_COMPLETE
+}
+
+enum RefusalReason {
+  CANDIDATE_REFUSAL
+  HR_REFUSAL
+  TECH_REFUSAL
 }
