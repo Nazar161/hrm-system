@@ -19,8 +19,8 @@ import { requiredMessage } from '../utils/constants';
 
 import useAuth from '../hooks/useAuth';
 
-import { SignUpMutation } from '../api/graphql/SignUpMutation';
-import { AuthFragment } from '../api/graphql/AuthFragment';
+import { SignUpMutation } from '../api/graphql/auth/SignUpMutation';
+import { AuthFragment } from '../api/graphql/auth/AuthFragment';
 
 export const Route = createFileRoute('/signup')({
   component: SignUp,

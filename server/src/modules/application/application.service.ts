@@ -3,12 +3,13 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateApplicationInput } from './dto/inputs/createApplication.input';
 import { UpdateApplicationInput } from './dto/inputs/updateApplication.input';
 import { ApplicationPreview } from './entities/applicationPreview.entity';
+import { last } from 'lodash';
 
 @Injectable()
 export class ApplicationService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createApplicationInput: CreateApplicationInput) {
+  async create(createApplicationInput: CreateApplicationInput, userId: string) {
     const { vacancyId, candidateId } = createApplicationInput;
 
     const application = await this.prisma.application.create({
@@ -19,16 +20,20 @@ export class ApplicationService {
         candidate: {
           connect: { id: candidateId },
         },
+        createdBy: {
+          connect: { id: userId },
+        },
       },
     });
 
     return application ? { isSuccess: true } : { isSuccess: false };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, userId: string) {
     const application = await this.prisma.application.findUnique({
       where: {
         id,
+        createdById: userId,
       },
       include: {
         vacancy: true,
@@ -37,6 +42,24 @@ export class ApplicationService {
     });
 
     return application;
+  }
+
+  async findAll(userId: string, last: number) {
+    const applications = await this.prisma.application.findMany({
+      where: {
+        createdById: userId,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      include: {
+        vacancy: true,
+        candidate: true,
+      },
+      take: last
+    });
+
+    return applications;
   }
 
   async update(updateApplicationInput: UpdateApplicationInput) {
@@ -65,23 +88,45 @@ export class ApplicationService {
       select: {
         id: true,
         candidate: { select: { id: true, firstName: true, lastName: true, position: true } },
+        vacancy: { select: { id: true, title: true } },
       },
     });
 
-    const applications = rawApplications.map((application) => {
+    return this.handleRawApplications(rawApplications);
+  }
+
+  handleRawApplications(rawApplications: RawApplication[]): ApplicationPreview[] {
+    const applications = rawApplications.map((rawApplication) => {
       const {
         id,
         candidate: { id: candidateId, firstName, lastName, position },
-      } = application;
+        vacancy: { id: vacancyId, title },
+      } = rawApplication;
 
       return {
         id,
         candidateId,
         candidateName: `${firstName} ${lastName}`,
         candidatePosition: position,
+        vacancyId,
+        vacancyTitle: title,
       };
     });
 
     return applications;
   }
 }
+
+type RawApplication = {
+  id: string;
+  candidate: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    position: string;
+  };
+  vacancy: {
+    id: string;
+    title: string;
+  };
+};

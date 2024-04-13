@@ -3,7 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { getRefreshToken, saveAuthTokens } from '../utils/authStore';
 import urqlClient from '../utils/urqlClient';
 
-import { GetNewTokensMutation } from '../api/graphql/GetNewTokensMutation';
+import { GetNewTokensMutation } from '../api/graphql/auth/GetNewTokensMutation';
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context, location }) => {

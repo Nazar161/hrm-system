@@ -1,5 +1,5 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { InputType, Field, Int } from '@nestjs/graphql';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateVacancyInput {
@@ -12,4 +12,10 @@ export class CreateVacancyInput {
   @IsString()
   @Field()
   description: string;
+
+  @Field(() => Int, { nullable: true })
+  minSalary?: number;
+
+  @Field(() => Int, { nullable: true })
+  maxSalary?: number;
 }

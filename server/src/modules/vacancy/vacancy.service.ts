@@ -7,12 +7,14 @@ export class VacancyService {
   constructor(private prisma: PrismaService) {}
 
   async create(createVacancyInput: CreateVacancyInput, userId: string) {
-    const { title, description } = createVacancyInput;
+    const { title, description, maxSalary, minSalary } = createVacancyInput;
     const vacancy = await this.prisma.vacancy.create({
       data: {
         title,
         description,
-        user: {
+        minSalary,
+        maxSalary,
+        createdBy: {
           connect: {
             id: userId,
           },
@@ -26,7 +28,7 @@ export class VacancyService {
   async findAll(userId: string, last: number) {
     return await this.prisma.vacancy.findMany({
       where: {
-        userId,
+        createdById: userId,
       },
       orderBy: {
         updatedAt: 'desc',
@@ -39,7 +41,7 @@ export class VacancyService {
     return await this.prisma.vacancy.findUnique({
       where: {
         id,
-        userId,
+        createdById: userId,
       },
     });
   }

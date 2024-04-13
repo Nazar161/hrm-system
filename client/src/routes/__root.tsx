@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useMutation } from 'urql';
-import { LogoutMutation } from '../api/graphql/LogoutMutation';
+import { LogoutMutation } from '../api/graphql/auth/LogoutMutation';
 
 import { createRootRouteWithContext, Link, Outlet, useNavigate } from '@tanstack/react-router';
 
@@ -51,7 +51,7 @@ function Root() {
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="min-h-screen">
       <header className="bg-slate-900 px-4">
         <nav className="border-gray-200 py-2.5 ">
           <div className="mx-auto flex flex-wrap items-center justify-between">
@@ -125,11 +125,11 @@ function Root() {
           </div>
         </nav>
       </header>
-      <main className="h-full px-4">
+      <main className="px-4">
         <Outlet />
         <Toaster />
       </main>
-      <footer className="h-14 bg-slate-900 px-4">
+      <footer className="sticky top-[100vh] mt-5 h-14 bg-slate-900 px-4">
         <div className="text-white">
           <span>HRM Система</span>
           <span> | </span>

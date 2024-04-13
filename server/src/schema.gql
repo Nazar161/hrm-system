@@ -37,12 +37,16 @@ type ApplicationPreview {
   candidateId: ID!
   candidateName: String!
   candidatePosition: String!
+  vacancyId: ID!
+  vacancyTitle: String!
 }
 
 type Vacancy {
   id: ID!
   title: String!
   description: String!
+  minSalary: Int
+  maxSalary: Int
   applications: [ApplicationPreview]
 }
 
@@ -124,6 +128,7 @@ type Query {
   vacancy(id: ID!): Vacancy!
   vacancies(last: Int): [Vacancy!]!
   application(id: ID!): Application!
+  applications(last: Int): [Application!]!
 }
 
 type Mutation {
@@ -177,6 +182,8 @@ input UpdateCandidateInput {
 input CreateVacancyInput {
   title: String!
   description: String!
+  minSalary: Int
+  maxSalary: Int
 }
 
 input CreateApplicationInput {

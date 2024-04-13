@@ -12,17 +12,18 @@ datasource db {
 }
 
 model User {
-  id                 String      @id @default(cuid())
-  email              String      @unique
-  username           String      @unique
+  id                 String        @id @default(cuid())
+  email              String        @unique
+  username           String        @unique
   firstName          String
   lastName           String
   hashedPassword     String
   hashedRefreshToken String?
-  createdAt          DateTime    @default(now())
-  updatedAt          DateTime    @default(now())
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @default(now())
   candidates         Candidate[]
   vacancies          Vacancy[]
+  applications       Application[]
 }
 
 model Candidate {
@@ -39,8 +40,9 @@ model Candidate {
   updatedAt    DateTime      @default(now())
   resumes      Resume[]
   applications Application[]
-  user         User          @relation(fields: [userId], references: [id])
-  userId       String
+
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
 }
 
 enum Sex {
@@ -67,11 +69,14 @@ model Vacancy {
   id           String        @id @default(cuid())
   title        String
   description  String
+  minSalary    Int?
+  maxSalary    Int?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @default(now())
   applications Application[]
-  user         User          @relation(fields: [userId], references: [id])
-  userId       String
+
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
 }
 
 model Application {
@@ -91,6 +96,9 @@ model Application {
   refusalReasonComment String?
   createdAt            DateTime         @default(now())
   updatedAt            DateTime         @default(now())
+
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
 
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   candidateId String

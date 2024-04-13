@@ -20,7 +20,7 @@ export class CandidateService {
           position,
           sex: sex,
           dateOfBirth,
-          user: {
+          createdBy: {
             connect: {
               id: userId,
             },
@@ -39,7 +39,7 @@ export class CandidateService {
   async findAll(userId: string, last: number) {
     return await this.prisma.candidate.findMany({
       where: {
-        userId,
+        createdById: userId,
       },
       orderBy: {
         updatedAt: 'desc',
@@ -52,7 +52,7 @@ export class CandidateService {
     const candidate = await this.prisma.candidate.findUnique({
       where: {
         id,
-        userId,
+        createdById: userId,
       },
     });
 

@@ -19,8 +19,8 @@ import { requiredMessage } from '../utils/constants';
 
 import useAuth from '../hooks/useAuth';
 
-import { SignInMutation } from '../api/graphql/SignInMutation';
-import { AuthFragment } from '../api/graphql/AuthFragment';
+import { SignInMutation } from '../api/graphql/auth/SignInMutation';
+import { AuthFragment } from '../api/graphql/auth/AuthFragment';
 
 export const Route = createFileRoute('/login')({
   validateSearch: z.object({

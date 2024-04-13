@@ -13,4 +13,10 @@ export class ApplicationPreview {
 
   @Field()
   candidatePosition: string;
+
+  @Field(() => ID)
+  vacancyId: string;
+
+  @Field()
+  vacancyTitle: string;
 }
