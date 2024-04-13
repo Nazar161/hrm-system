@@ -19,6 +19,7 @@ import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedVacancyIdImport } from './routes/_authenticated/vacancy/$id'
 import { Route as AuthenticatedCandidateIdImport } from './routes/_authenticated/candidate/$id'
+import { Route as AuthenticatedApplicationIdImport } from './routes/_authenticated/application/$id'
 
 // Create Virtual Routes
 
@@ -28,6 +29,15 @@ const AuthenticatedVacancyIndexLazyImport = createFileRoute(
 )()
 const AuthenticatedCandidateIndexLazyImport = createFileRoute(
   '/_authenticated/candidate/',
+)()
+const AuthenticatedApplicationIndexLazyImport = createFileRoute(
+  '/_authenticated/application/',
+)()
+const AuthenticatedVacancyCreateLazyImport = createFileRoute(
+  '/_authenticated/vacancy/create',
+)()
+const AuthenticatedCandidateCreateLazyImport = createFileRoute(
+  '/_authenticated/candidate/create',
 )()
 
 // Create/Update Routes
@@ -75,6 +85,34 @@ const AuthenticatedCandidateIndexLazyRoute =
     import('./routes/_authenticated/candidate/index.lazy').then((d) => d.Route),
   )
 
+const AuthenticatedApplicationIndexLazyRoute =
+  AuthenticatedApplicationIndexLazyImport.update({
+    path: '/application/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/application/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedVacancyCreateLazyRoute =
+  AuthenticatedVacancyCreateLazyImport.update({
+    path: '/vacancy/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/vacancy/create.lazy').then((d) => d.Route),
+  )
+
+const AuthenticatedCandidateCreateLazyRoute =
+  AuthenticatedCandidateCreateLazyImport.update({
+    path: '/candidate/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/candidate/create.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedVacancyIdRoute = AuthenticatedVacancyIdImport.update({
   path: '/vacancy/$id',
   getParentRoute: () => AuthenticatedRoute,
@@ -84,6 +122,13 @@ const AuthenticatedCandidateIdRoute = AuthenticatedCandidateIdImport.update({
   path: '/candidate/$id',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+
+const AuthenticatedApplicationIdRoute = AuthenticatedApplicationIdImport.update(
+  {
+    path: '/application/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any,
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -109,12 +154,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/application/$id': {
+      preLoaderRoute: typeof AuthenticatedApplicationIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
     '/_authenticated/candidate/$id': {
       preLoaderRoute: typeof AuthenticatedCandidateIdImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/vacancy/$id': {
       preLoaderRoute: typeof AuthenticatedVacancyIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/candidate/create': {
+      preLoaderRoute: typeof AuthenticatedCandidateCreateLazyImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/vacancy/create': {
+      preLoaderRoute: typeof AuthenticatedVacancyCreateLazyImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/application/': {
+      preLoaderRoute: typeof AuthenticatedApplicationIndexLazyImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/candidate/': {
@@ -134,8 +195,12 @@ export const routeTree = rootRoute.addChildren([
   AuthenticatedRoute.addChildren([
     AuthenticatedAboutLazyRoute,
     AuthenticatedIndexRoute,
+    AuthenticatedApplicationIdRoute,
     AuthenticatedCandidateIdRoute,
     AuthenticatedVacancyIdRoute,
+    AuthenticatedCandidateCreateLazyRoute,
+    AuthenticatedVacancyCreateLazyRoute,
+    AuthenticatedApplicationIndexLazyRoute,
     AuthenticatedCandidateIndexLazyRoute,
     AuthenticatedVacancyIndexLazyRoute,
   ]),
