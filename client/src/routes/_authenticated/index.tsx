@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router';
 import { useQuery } from 'urql';
 import { HomePageQuery } from '../../api/graphql/HomePageQuery';
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -11,10 +10,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Button } from '../../components/ui/button';
-import VacancyCard from '../../components/cards/vacancyCard';
-import CandidateCard from '../../components/cards/candidateCard';
-import ApplicationCard from '../../components/cards/applicationCard';
+import { Button } from '@/components/ui/button';
+import VacancyCard from '@/components/cards/vacancyCard';
+import CandidateCard from '@/components/cards/candidateCard';
+import ApplicationCard from '@/components/cards/applicationCard';
 
 export const Route = createFileRoute('/_authenticated/')({
   component: Index,
@@ -55,7 +54,7 @@ function Index() {
           <CarouselContent>
             {data.vacancies.map((vacancy) => {
               return (
-                <CarouselItem className="w-2/3 md:w-auto md:basis-1/3 xl:basis-1/4" key={vacancy.id}>
+                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={vacancy.id}>
                   <VacancyCard
                     id={vacancy.id}
                     title={vacancy.title}
@@ -86,7 +85,7 @@ function Index() {
           <CarouselContent>
             {data.candidates.map((candidate) => {
               return (
-                <CarouselItem className="w-2/3 md:w-auto md:basis-1/3 xl:basis-1/4" key={candidate.id}>
+                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={candidate.id}>
                   <CandidateCard
                     id={candidate.id}
                     firstName={candidate.firstName}
@@ -113,7 +112,7 @@ function Index() {
           <CarouselContent>
             {data.applications.map((application) => {
               return (
-                <CarouselItem className="w-2/3 md:w-auto md:basis-1/3 xl:basis-1/4" key={application.id}>
+                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={application.id}>
                   <ApplicationCard
                     id={application.id}
                     vacancyId={application.vacancy.id}

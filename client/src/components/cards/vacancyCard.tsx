@@ -18,13 +18,13 @@ const VacancyCard: FC<Props> = ({ id, title, description, minSalary, maxSalary }
     <div className="h-full p-1" key={id}>
       <Card className="h-full">
         <CardHeader>
-          <CardTitle>{title}</CardTitle>
+          <CardTitle className="h-8">{title}</CardTitle>
           <CardDescription>
             {minSalary} - {maxSalary}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>{description}</p>
+          <p className="line-clamp-3">{description}</p>
         </CardContent>
         <CardFooter>
           <Button>

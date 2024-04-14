@@ -110,11 +110,7 @@ function CreateVacancy() {
               <FormItem>
                 <FormLabel>Описание</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Tell us a little bit about yourself"
-                    className="min-h-[160px]"
-                    {...field}
-                  />
+                  <Textarea placeholder="Описание вакансии" className="min-h-[160px]" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

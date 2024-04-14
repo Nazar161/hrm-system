@@ -7,6 +7,8 @@ import urqlClient from './utils/urqlClient';
 import { AuthProvider } from './context/AuthProvider';
 import useAuth from './hooks/useAuth';
 
+import 'react-day-picker/dist/style.css';
+
 const router = createRouter({
   routeTree,
   context: {
