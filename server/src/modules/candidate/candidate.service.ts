@@ -48,6 +48,18 @@ export class CandidateService {
     });
   }
 
+  async findAllAvailableCandidates(userId: string) {
+    return await this.prisma.candidate.findMany({
+      where: {
+        createdById: userId,
+        applications: { none: {} },
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
+  }
+
   async findOne(id: string, userId: string) {
     const candidate = await this.prisma.candidate.findUnique({
       where: {

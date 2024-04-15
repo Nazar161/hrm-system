@@ -39,6 +39,12 @@ const AuthenticatedVacancyCreateLazyImport = createFileRoute(
 const AuthenticatedCandidateCreateLazyImport = createFileRoute(
   '/_authenticated/candidate/create',
 )()
+const AuthenticatedVacancyIdEditLazyImport = createFileRoute(
+  '/_authenticated/vacancy/$id/edit',
+)()
+const AuthenticatedCandidateIdEditLazyImport = createFileRoute(
+  '/_authenticated/candidate/$id/edit',
+)()
 
 // Create/Update Routes
 
@@ -130,6 +136,26 @@ const AuthenticatedApplicationIdRoute = AuthenticatedApplicationIdImport.update(
   } as any,
 )
 
+const AuthenticatedVacancyIdEditLazyRoute =
+  AuthenticatedVacancyIdEditLazyImport.update({
+    path: '/edit',
+    getParentRoute: () => AuthenticatedVacancyIdRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/vacancy/$id.edit.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedCandidateIdEditLazyRoute =
+  AuthenticatedCandidateIdEditLazyImport.update({
+    path: '/edit',
+    getParentRoute: () => AuthenticatedCandidateIdRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/candidate/$id.edit.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -186,6 +212,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedVacancyIndexLazyImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/candidate/$id/edit': {
+      preLoaderRoute: typeof AuthenticatedCandidateIdEditLazyImport
+      parentRoute: typeof AuthenticatedCandidateIdImport
+    }
+    '/_authenticated/vacancy/$id/edit': {
+      preLoaderRoute: typeof AuthenticatedVacancyIdEditLazyImport
+      parentRoute: typeof AuthenticatedVacancyIdImport
+    }
   }
 }
 
@@ -196,8 +230,12 @@ export const routeTree = rootRoute.addChildren([
     AuthenticatedAboutLazyRoute,
     AuthenticatedIndexRoute,
     AuthenticatedApplicationIdRoute,
-    AuthenticatedCandidateIdRoute,
-    AuthenticatedVacancyIdRoute,
+    AuthenticatedCandidateIdRoute.addChildren([
+      AuthenticatedCandidateIdEditLazyRoute,
+    ]),
+    AuthenticatedVacancyIdRoute.addChildren([
+      AuthenticatedVacancyIdEditLazyRoute,
+    ]),
     AuthenticatedCandidateCreateLazyRoute,
     AuthenticatedVacancyCreateLazyRoute,
     AuthenticatedApplicationIndexLazyRoute,

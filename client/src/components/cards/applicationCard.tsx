@@ -40,7 +40,7 @@ const ApplicationCard: FC<Props> = ({
             <CardDescription>Отклик на вакансию:</CardDescription>
             <CardTitle>{vacancyTitle}</CardTitle>
             <p>
-              {vacancyMinSalary} - {vacancyMaxSalary}
+              {vacancyMinSalary && `от ${vacancyMinSalary}`} {vacancyMaxSalary && `до ${vacancyMaxSalary}`}
             </p>
           </Link>
         </CardHeader>

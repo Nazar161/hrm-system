@@ -111,15 +111,6 @@ function Root() {
                     Кандидаты
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/about"
-                    className="block border-b py-2 pl-3 pr-4 text-white lg:border-0 lg:p-0"
-                    activeProps={activeProps}
-                  >
-                    О компании
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>

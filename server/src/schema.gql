@@ -117,12 +117,14 @@ enum Sex {
 }
 
 type MutateApplicationResponse {
+  id: ID!
   isSuccess: Boolean!
 }
 
 type Query {
   hello: String!
   candidates(last: Int): [Candidate!]!
+  availableCandidates: [Candidate!]!
   candidate(id: ID!): Candidate!
   resume(id: Int!): Resume!
   vacancy(id: ID!): Vacancy!

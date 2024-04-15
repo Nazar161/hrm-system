@@ -14,7 +14,7 @@ export class ApplicationResolver {
   async createApplication(
     @Args('createApplicationInput') createApplicationInput: CreateApplicationInput,
     @CurrentUserId() userId: string,
-  ) {
+  ) : Promise<MutateApplicationResponse> {
     return this.applicationService.create(createApplicationInput, userId);
   }
 

@@ -26,7 +26,7 @@ export class ApplicationService {
       },
     });
 
-    return application ? { isSuccess: true } : { isSuccess: false };
+    return application && { id: application.id, isSuccess: true };
   }
 
   async findOne(id: string, userId: string) {
@@ -56,7 +56,7 @@ export class ApplicationService {
         vacancy: true,
         candidate: true,
       },
-      take: last
+      take: last,
     });
 
     return applications;

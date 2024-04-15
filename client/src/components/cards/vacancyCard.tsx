@@ -20,7 +20,13 @@ const VacancyCard: FC<Props> = ({ id, title, description, minSalary, maxSalary }
         <CardHeader>
           <CardTitle className="h-8">{title}</CardTitle>
           <CardDescription>
-            {minSalary} - {maxSalary}
+            {minSalary && maxSalary
+              ? minSalary - maxSalary
+              : !!minSalary
+                ? `от ${minSalary}`
+                : !!maxSalary
+                  ? `до ${maxSalary}`
+                  : 'Зарплата не указана'}
           </CardDescription>
         </CardHeader>
         <CardContent>
