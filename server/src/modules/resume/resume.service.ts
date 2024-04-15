@@ -66,6 +66,15 @@ export class ResumeService {
       },
     });
 
+    await this.prisma.candidate.update({
+      where: {
+        id: candidateId,
+      },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+
     return resume;
   }
 }

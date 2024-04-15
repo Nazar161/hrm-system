@@ -69,6 +69,7 @@ const auth = authExchange(async (utils) => {
 const urqlClient = new Client({
   url: 'http://localhost:5222/api/graphql',
   exchanges: [cacheExchange, auth, fetchExchange],
+  requestPolicy: 'cache-and-network',
 });
 
 export default urqlClient;
