@@ -18,10 +18,10 @@ const VacancyCard: FC<Props> = ({ id, title, description, minSalary, maxSalary }
     <div className="h-full p-1" key={id}>
       <Card className="h-full">
         <CardHeader>
-          <CardTitle className="h-8">{title}</CardTitle>
+          <CardTitle className="line-clamp-2 h-10 leading-5">{title}</CardTitle>
           <CardDescription>
             {minSalary && maxSalary
-              ? minSalary - maxSalary
+              ? `${minSalary} - ${maxSalary}`
               : !!minSalary
                 ? `от ${minSalary}`
                 : !!maxSalary
@@ -33,11 +33,9 @@ const VacancyCard: FC<Props> = ({ id, title, description, minSalary, maxSalary }
           <p className="line-clamp-3">{description}</p>
         </CardContent>
         <CardFooter>
-          <Button>
-            <Link to="/vacancy/$id" params={{ id: id }}>
-              Перейти
-            </Link>
-          </Button>
+          <Link to="/vacancy/$id" params={{ id: id }}>
+            <Button>Перейти</Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

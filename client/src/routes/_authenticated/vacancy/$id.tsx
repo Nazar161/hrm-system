@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { useMutation, useQuery } from 'urql';
 
-import { VacancyQuery } from '../../../api/graphql/VacancyQuery';
+import { VacancyQuery } from '../../../api/graphql/vacancy/VacancyQuery';
 import { CreateApplicationMutation } from '../../../api/graphql/CreateApplicationMutation';
 
 import { Button } from '@/components/ui/button';

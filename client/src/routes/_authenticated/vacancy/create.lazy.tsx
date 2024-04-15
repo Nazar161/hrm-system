@@ -1,7 +1,7 @@
 import { Link, createLazyFileRoute } from '@tanstack/react-router';
 
 import { useMutation } from 'urql';
-import { CreateVacancyMutation } from '../../../api/graphql/CreateVacancyMutation';
+import { CreateVacancyMutation } from '../../../api/graphql/vacancy/CreateVacancyMutation';
 
 import { requiredMessage } from '../../../utils/constants';
 import { z } from 'zod';
