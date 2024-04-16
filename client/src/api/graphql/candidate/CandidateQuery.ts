@@ -16,6 +16,17 @@ export const CandidateQuery = graphql(`
         resumeTitle
         resumeUrl
       }
+      applications {
+        id
+        vacancyId
+        vacancyTitle
+      }
+    }
+    vacancies {
+      id
+      title
+      minSalary
+      maxSalary
     }
   }
 `);

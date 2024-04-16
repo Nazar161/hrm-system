@@ -47,11 +47,9 @@ const CandidateCard: FC<Props> = ({ id, position, firstName, lastName, email, ph
           </div>
         </CardContent>
         <CardFooter>
-          <Button>
-            <Link to="/candidate/$id" params={{ id: id }}>
-              Перейти
-            </Link>
-          </Button>
+          <Link to="/candidate/$id" params={{ id: id }}>
+            <Button>Перейти</Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

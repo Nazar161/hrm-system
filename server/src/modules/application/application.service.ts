@@ -95,6 +95,24 @@ export class ApplicationService {
     return this.handleRawApplications(rawApplications);
   }
 
+  async findAllByCandidateId(candidateId: string) {
+    const rawApplications = await this.prisma.application.findMany({
+      where: {
+        candidateId,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      select: {
+        id: true,
+        candidate: { select: { id: true, firstName: true, lastName: true, position: true } },
+        vacancy: { select: { id: true, title: true } },
+      },
+    });
+
+    return this.handleRawApplications(rawApplications);
+  }
+
   handleRawApplications(rawApplications: RawApplication[]): ApplicationPreview[] {
     const applications = rawApplications.map((rawApplication) => {
       const {

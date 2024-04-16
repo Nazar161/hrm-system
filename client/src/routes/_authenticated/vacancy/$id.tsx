@@ -93,9 +93,13 @@ function Vacancy() {
 
               return (
                 <div className="flex items-center justify-between border-b py-2" key={application.id}>
-                  <span>
+                  <Link
+                    to="/candidate/$id"
+                    params={{ id: application.candidateId }}
+                    className="hover:text-blue-500"
+                  >
                     {application.candidateName}({application.candidatePosition})
-                  </span>
+                  </Link>
                   <Link to="/application/$id" params={{ id: application.id }}>
                     <Button>Перейти к отклику</Button>
                   </Link>

@@ -41,6 +41,31 @@ type ApplicationPreview {
   vacancyTitle: String!
 }
 
+type Candidate {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phone: String
+  email: String!
+  position: String!
+  sex: Sex!
+  dateOfBirth: DateTime!
+  imageUrl: String
+  resumes: [Resume]
+  applications: [ApplicationPreview]
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Vacancy {
   id: ID!
   title: String!
@@ -89,31 +114,6 @@ enum RefusalReason {
   CANDIDATE_REFUSAL
   HR_REFUSAL
   TECH_REFUSAL
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Candidate {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  phone: String
-  email: String!
-  position: String!
-  sex: Sex!
-  dateOfBirth: DateTime!
-  imageUrl: String
-  resumes: [Resume]
-  applications: [Application]
-}
-
-enum Sex {
-  MALE
-  FEMALE
-  UNKNOWN
 }
 
 type MutateApplicationResponse {

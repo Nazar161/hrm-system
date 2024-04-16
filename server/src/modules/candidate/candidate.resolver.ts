@@ -5,12 +5,15 @@ import { CreateCandidateInput } from './dto/inputs/createCandidate.input';
 import { UpdateCandidateInput } from './dto/inputs/updateCandidate.input';
 import { ResumeService } from '../resume/resume.service';
 import { CurrentUserId } from '../auth/decorators/currentUserId.decorator';
+import { ApplicationPreview } from '../application/entities/applicationPreview.entity';
+import { ApplicationService } from '../application/application.service';
 
 @Resolver(() => Candidate)
 export class CandidateResolver {
   constructor(
     private readonly candidateService: CandidateService,
     private resumeService: ResumeService,
+    private readonly applicationService: ApplicationService,
   ) {}
 
   @Mutation(() => Candidate)
@@ -50,5 +53,11 @@ export class CandidateResolver {
   async resumes(@Parent() candidate: Candidate) {
     const { id } = candidate;
     return this.resumeService.findAllByCandidateId(id);
+  }
+
+  @ResolveField()
+  async applications(@Parent() candidate: Candidate): Promise<ApplicationPreview[]> {
+    const { id } = candidate;
+    return this.applicationService.findAllByCandidateId(id);
   }
 }

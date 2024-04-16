@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Sex } from './sex.enum';
 import { Resume } from '../../resume/entities/resume.entity';
-import { Application } from '../../application/entities/application.entity';
+import { ApplicationPreview } from '../../application/entities/applicationPreview.entity';
 
 @ObjectType()
 export class Candidate {
@@ -35,6 +35,6 @@ export class Candidate {
   @Field(() => [Resume], { nullable: 'itemsAndList' })
   resumes: Resume[];
 
-  @Field(() => [Application], { nullable: 'itemsAndList' })
-  applications: Application[];
+  @Field(() => [ApplicationPreview], { nullable: 'itemsAndList' })
+  applications: ApplicationPreview[];
 }
