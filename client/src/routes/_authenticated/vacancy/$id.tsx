@@ -73,7 +73,8 @@ function Vacancy() {
             <h2 className="text-xl tracking-tight">Назваине:</h2>
             <h2 className="text-2xl font-semibold tracking-tight">{data.vacancy.title}</h2>
             <p>
-              от {data.vacancy.minSalary} до {data.vacancy.maxSalary}
+              {data.vacancy.minSalary && `от ${data.vacancy.minSalary}`}{' '}
+              {data.vacancy.maxSalary && `до ${data.vacancy.maxSalary}`}
             </p>
           </div>
           <div className="mb-5">

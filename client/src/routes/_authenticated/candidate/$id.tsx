@@ -106,7 +106,7 @@ function Candidate() {
 
   return (
     <div>
-      <div className="mt-5 block lg:flex lg:gap-6">
+      <div className="mt-5 block lg:flex lg:gap-8">
         <div className="mb-5 w-full lg:w-2/5">
           <h2 className="mb-2 rounded-md bg-slate-300 p-2 text-3xl font-semibold tracking-tight">Кандидат</h2>
           <div>
@@ -159,7 +159,7 @@ function Candidate() {
               <span className="font-bold">Резюме:</span>
               {data.candidate.resumes?.length === 0 && <div className="ml-2">Нет загруженных резюме</div>}
 
-              <div className="flex flex-col">
+              <div className="flex flex-col overflow-hidden">
                 {data.candidate.resumes?.map((resume, index) => {
                   if (!resume) {
                     return null;
@@ -170,9 +170,10 @@ function Candidate() {
                       key={resume.id}
                       href={resume.resumeUrl}
                       target="_blank"
-                      className="ml-2 underline hover:text-blue-500"
+                      className="ml-2 flex overflow-hidden underline hover:text-blue-500"
                     >
-                      {index + 1}. {resume.resumeTitle}
+                      <span className="mr-2">{index + 1}.</span>
+                      <span className="max-w-full">{resume.resumeTitle}</span>
                     </a>
                   );
                 })}
@@ -180,7 +181,10 @@ function Candidate() {
             </div>
           </div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 rounded-md border bg-slate-200 p-2">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-96 max-w-full rounded-md border bg-slate-200 p-2"
+            >
               <FormField
                 control={form.control}
                 name="resume"
@@ -241,7 +245,7 @@ function Candidate() {
         <h2 className="mb-2 rounded-md bg-slate-300 p-2 text-3xl font-semibold tracking-tight">Вакансии</h2>
         {data.vacancies.map((vacancy) => {
           return (
-            <div className="mb-2 flex items-center justify-between border-b pb-2" key={vacancy.id}>
+            <div className="mb-2 flex flex-wrap items-center justify-between border-b pb-2" key={vacancy.id}>
               <Link to="/vacancy/$id" params={{ id: vacancy.id }} className="hover:text-blue-500">
                 {vacancy.title}
               </Link>

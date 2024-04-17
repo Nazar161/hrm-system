@@ -6,7 +6,7 @@ const BurgerButton: React.FC<Props> = ({ onClick }: Props) => {
   return (
     <button
       type="button"
-      className="ml-1 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 lg:hidden"
+      className="absolute left-0 ml-1 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 lg:hidden"
       onClick={onClick}
     >
       <span className="sr-only">Open main menu</span>

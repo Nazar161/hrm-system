@@ -176,7 +176,7 @@ function CreateCandidate() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Пол</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Выберите пол" />

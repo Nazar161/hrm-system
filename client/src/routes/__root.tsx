@@ -56,9 +56,10 @@ function Root() {
         <nav className="border-gray-200 py-2.5 ">
           <div className="mx-auto flex flex-wrap items-center justify-between">
             <Link to="/" className="flex items-center text-white">
-              <span className="self-center whitespace-nowrap text-xl font-semibold ">HRM Система</span>
+              <span className="self-center whitespace-nowrap text-xl font-semibold">HRM Система</span>
             </Link>
-            <div className="flex items-center lg:order-2">
+            <div className="relative mt-2 flex w-full items-center justify-end lg:order-2 lg:mt-0 lg:w-auto">
+              <BurgerButton onClick={() => setMenuVisibility(!menuVisibility)} />
               {!auth.isAuthenticated ? (
                 <>
                   <Link
@@ -87,7 +88,6 @@ function Root() {
                   </Button>
                 </>
               )}
-              <BurgerButton onClick={() => setMenuVisibility(!menuVisibility)} />
             </div>
             <div
               className={`w-full items-center justify-between lg:order-1 lg:flex lg:w-auto ${menuVisibility ? '' : 'hidden'}`}
