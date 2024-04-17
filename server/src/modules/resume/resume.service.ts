@@ -39,7 +39,7 @@ export class ResumeService {
   async uploadResume(file: Express.Multer.File, candidateId: string) {
     const resumeId = this.createId();
 
-    const fileOriginalName = file.originalname;
+    const fileOriginalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
     const fileExtension = fileOriginalName.substring(fileOriginalName.lastIndexOf('.') + 1);
     const customFileName = `${resumeId}.${fileExtension}`;
     const resumeUrl = `https://storage.googleapis.com/hrm-system-378-storage/${customFileName}`;
