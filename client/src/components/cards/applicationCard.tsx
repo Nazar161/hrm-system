@@ -59,7 +59,7 @@ const ApplicationCard: FC<Props> = ({
         </CardContent>
         <CardFooter>
           <Link to="/application/$id" params={{ id: id }}>
-            <Button>Перейти к отклику</Button>
+            <Button variant='secondary'>Перейти к отклику</Button>
           </Link>
         </CardFooter>
       </Card>

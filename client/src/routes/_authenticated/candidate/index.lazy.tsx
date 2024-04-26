@@ -31,7 +31,7 @@ function CandidateList() {
       <div className="mb-4 flex items-center justify-between border-b pb-2">
         <h2 className="text-3xl font-semibold tracking-tight">Список Кандидатов</h2>
         <Link to="/candidate/create" className="flex items-center justify-center">
-          <Button className="bg-slate-600 hover:bg-slate-800">Добавить нового кандидата</Button>
+          <Button >Добавить нового кандидата</Button>
         </Link>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

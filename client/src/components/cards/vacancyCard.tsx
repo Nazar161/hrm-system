@@ -34,7 +34,7 @@ const VacancyCard: FC<Props> = ({ id, title, description, minSalary, maxSalary }
         </CardContent>
         <CardFooter>
           <Link to="/vacancy/$id" params={{ id: id }}>
-            <Button>Перейти</Button>
+            <Button variant="secondary">Перейти</Button>
           </Link>
         </CardFooter>
       </Card>

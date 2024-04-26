@@ -13,13 +13,6 @@ import useAuth from '../hooks/useAuth';
 import { IUserContext, type IAuth } from '../context/AuthProvider';
 
 import { clearStorageTokens } from '../utils/authStore';
-
-const activeProps = {
-  style: {
-    color: 'rgb(148, 163, 184)',
-  },
-};
-
 interface MyRouterContext {
   auth: IAuth;
 }
@@ -52,7 +45,7 @@ function Root() {
 
   return (
     <div className="min-h-screen">
-      <header className="bg-slate-900 px-4">
+      <header className="bg-emerald-600 px-4">
         <nav className="border-gray-200 py-2.5 ">
           <div className="mx-auto flex flex-wrap items-center justify-between">
             <Link to="/" className="flex items-center text-white">
@@ -64,13 +57,13 @@ function Root() {
                 <>
                   <Link
                     to="/login"
-                    className="mr-2 rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-slate-800 focus:outline-none focus:ring-4 focus:ring-gray-300 lg:px-5 lg:py-2.5"
+                    className="mr-2 rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-emerald-800 focus:outline-none focus:ring-4 focus:ring-gray-300 lg:px-5 lg:py-2.5"
                   >
                     Вход
                   </Link>
                   <Link
                     to="/signup"
-                    className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg bg-slate-600 px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
+                    className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-emerald-800 focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
                   >
                     Регистрация
                   </Link>
@@ -82,7 +75,7 @@ function Root() {
                   </div>
                   <Button
                     onClick={handleLogout}
-                    className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg bg-slate-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-slate-800 focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
+                    className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 mr-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-50 hover:text-emerald-800 focus:outline-none focus:ring-4 lg:px-5 lg:py-2.5"
                   >
                     Выйти
                   </Button>
@@ -97,7 +90,6 @@ function Root() {
                   <Link
                     to="/vacancy"
                     className="block border-b py-2 pl-3 pr-4 text-white lg:border-0 lg:p-0"
-                    activeProps={activeProps}
                   >
                     Вакансии
                   </Link>
@@ -106,7 +98,6 @@ function Root() {
                   <Link
                     to="/candidate"
                     className="block border-b py-2 pl-3 pr-4 text-white lg:border-0 lg:p-0"
-                    activeProps={activeProps}
                   >
                     Кандидаты
                   </Link>
@@ -120,7 +111,7 @@ function Root() {
         <Outlet />
         <Toaster />
       </main>
-      <footer className="sticky top-[100vh] mt-5 h-14 bg-slate-900 px-4">
+      <footer className="sticky top-[100vh] mt-5 h-14 bg-emerald-600 px-4">
         <div className="text-white">
           <span>HRM Система</span>
           <span> | </span>

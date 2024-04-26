@@ -38,10 +38,10 @@ function Index() {
   return (
     <div>
       <h2 className="mt-8 pb-2 text-3xl font-semibold tracking-tight">Главная страница</h2>
-      <div className="relative flex w-full flex-col items-center ustify-center">
+      <div className="ustify-center relative flex w-full flex-col items-center">
         <div className="relative mb-2 mt-8 flex w-full  max-w-[90%] flex-col-reverse items-center justify-center md:flex-row">
           <Link to="/vacancy/create" className="static md:absolute md:left-1 md:top-0">
-            <Button className="bg-slate-600 hover:bg-slate-800">Создать вакансию</Button>
+            <Button>Создать вакансию</Button>
           </Link>
           <h2 className="text-3xl font-semibold tracking-tight">Вакансии</h2>
         </div>
@@ -72,7 +72,7 @@ function Index() {
         </Carousel>
         <div className="relative mb-2 mt-8 flex w-full  max-w-[90%] flex-col-reverse items-center justify-center md:flex-row">
           <Link to="/candidate/create" className="static md:absolute md:left-1 md:top-0">
-            <Button className="bg-slate-600 hover:bg-slate-800">Добавить нового кандидата</Button>
+            <Button>Добавить нового кандидата</Button>
           </Link>
           <h2 className="text-3xl font-semibold tracking-tight">Кандидаты</h2>
         </div>
