@@ -54,7 +54,7 @@ function Index() {
           <CarouselContent>
             {data.vacancies.map((vacancy) => {
               return (
-                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={vacancy.id}>
+                <CarouselItem className="w-full md:w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3lg:w-3/5 xl:w-auto xl:basis-1/3" key={vacancy.id}>
                   <VacancyCard
                     id={vacancy.id}
                     title={vacancy.title}
@@ -85,7 +85,7 @@ function Index() {
           <CarouselContent>
             {data.candidates.map((candidate) => {
               return (
-                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={candidate.id}>
+                <CarouselItem className="w-full md:w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={candidate.id}>
                   <CandidateCard
                     id={candidate.id}
                     firstName={candidate.firstName}
@@ -112,7 +112,7 @@ function Index() {
           <CarouselContent>
             {data.applications.map((application) => {
               return (
-                <CarouselItem className="w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={application.id}>
+                <CarouselItem className="w-full md:w-2/3 lg:w-3/5 xl:w-auto xl:basis-1/3" key={application.id}>
                   <ApplicationCard
                     id={application.id}
                     vacancyId={application.vacancy.id}

@@ -102,7 +102,7 @@ function Vacancy() {
                     {application.candidateName}({application.candidatePosition})
                   </Link>
                   <Link to="/application/$id" params={{ id: application.id }}>
-                    <Button variant='secondary'>Перейти к отклику</Button>
+                    <Button variant="secondary">Перейти к отклику</Button>
                   </Link>
                 </div>
               );
@@ -115,11 +115,14 @@ function Vacancy() {
             <div>
               {data.availableCandidates.map((candidate) => {
                 return (
-                  <div className="mb-2 flex items-center justify-between border-b pb-2" key={candidate.id}>
+                  <div
+                    className="mb-2 flex flex-wrap items-center justify-between border-b pb-2"
+                    key={candidate.id}
+                  >
                     <Link to="/candidate/$id" params={{ id: candidate.id }} className="hover:text-blue-500">
                       {candidate.firstName} {candidate.lastName}({candidate.position})
                     </Link>
-                    <Button onClick={() => selectCandidateForVacancy(candidate.id)} variant='secondary'>
+                    <Button onClick={() => selectCandidateForVacancy(candidate.id)} variant="secondary">
                       Отобрать на вакансию
                     </Button>
                   </div>

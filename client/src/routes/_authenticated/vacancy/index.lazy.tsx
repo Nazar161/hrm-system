@@ -28,7 +28,7 @@ function VacancyList() {
 
   return (
     <div className="mt-5">
-      <div className="mb-4 flex items-center justify-between border-b pb-2">
+      <div className="mb-4 flex flex-wrap items-center justify-between border-b pb-2">
         <h2 className="text-3xl font-semibold tracking-tight">Список Вакансий</h2>
         <Link to="/vacancy/create" className="flex items-center justify-center">
           <Button>Создать вакансию</Button>

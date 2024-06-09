@@ -26,7 +26,7 @@ const CandidateCard: FC<Props> = ({ id, position, firstName, lastName, email, ph
           <a href={`mailto: ${email}`} className="mb-2 block hover:text-blue-500 hover:underline">
             {email}
           </a>
-          <div className="flex h-6 items-center gap-3">
+          <div className="flex h-6 items-center gap-3 flex-wrap">
             {phone && (
               <>
                 <a href={`tel:+${phone}`} className="hover:text-blue-500 hover:underline">
