@@ -4,7 +4,6 @@ import { useQuery, useMutation } from 'urql';
 import { ApplicationQuery } from '../../../api/graphql/ApplicationQuery';
 
 import { useToast } from '@/components/ui/use-toast';
-import { ToastAction } from '@/components/ui/toast';
 
 import ApplicationForm, { FormSchemaType } from '../../../components/applicationForm';
 import { UpdateApplicationMutation } from '../../../api/graphql/UpdateApplicationMutation';

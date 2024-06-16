@@ -46,7 +46,7 @@ function Candidate() {
     formData.append('resume', data.resume[0]);
     formData.append('candidateId', candidateId);
 
-    const res = await fetch('http://localhost:5222/api/resume/upload', {
+    await fetch('http://localhost:5222/api/resume/upload', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -188,7 +188,7 @@ function Candidate() {
               <FormField
                 control={form.control}
                 name="resume"
-                render={({ field }) => {
+                render={() => {
                   return (
                     <FormItem>
                       <FormLabel>Загрузка резюме</FormLabel>
