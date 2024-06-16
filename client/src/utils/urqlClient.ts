@@ -67,7 +67,7 @@ const auth = authExchange(async (utils) => {
 });
 
 const urqlClient = new Client({
-  url: 'http://localhost:5222/api/graphql',
+  url: `${import.meta.env.VITE_API_URL}/api/graphql`,
   exchanges: [cacheExchange, auth, fetchExchange],
   requestPolicy: 'cache-and-network',
 });

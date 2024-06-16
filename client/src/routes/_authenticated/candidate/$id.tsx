@@ -46,7 +46,7 @@ function Candidate() {
     formData.append('resume', data.resume[0]);
     formData.append('candidateId', candidateId);
 
-    await fetch('http://localhost:5222/api/resume/upload', {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/resume/upload`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${getToken()}`,
