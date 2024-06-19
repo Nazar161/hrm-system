@@ -10,7 +10,10 @@ export class GcsService {
   constructor(private config: ConfigService) {
     this.storage = new Storage({
       projectId: config.get('GCS_PROJECT_ID'),
-      keyFilename: join(__dirname, '../../../gcs-keyfile.json'),
+      credentials: {
+        client_email: config.get('GCS_CLIENT_EMAIL'),
+        private_key: config.get('GCS_PRIVATE_KEY'),
+      },
     });
   }
 
